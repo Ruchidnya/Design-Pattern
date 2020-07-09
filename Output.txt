@@ -1,0 +1,13 @@
+Output of Factory_method.cpp:
+
+Animals move
+The dog walks on four legs
+The whale swims
+
+
+Output of Singleton.cpp:
+
+In main the value of x is: 0
+In B the value of x is: 1
+In C the value of x is: 2
+
