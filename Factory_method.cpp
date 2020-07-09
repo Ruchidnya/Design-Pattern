@@ -5,10 +5,7 @@ using namespace std;
 class Animal
 {
 	public:
-		virtual void Move()
-		{
-			cout << "Animals move" << endl;
-		}
+		virtual void Move() =0;
 };
 
 class Dog : public Animal
@@ -31,8 +28,18 @@ class Whale : public Animal
 
 class User
 {
+	static User *u;
 	public:
-	User(int t)
+	~User()
+	{
+		if(anim)
+		{
+			delete[] anim;
+			anim = NULL;
+		}
+	}
+
+	Animal *getAnimal(int t)
 	{
 		if(t==1)
 		{
@@ -46,30 +53,24 @@ class User
 		{
 			anim=NULL;
 		}
-	}
-	~User()
-	{
-		if(anim)
-		{
-			delete[] anim;
-			anim = NULL;
-		}
-	}
-
-	Animal *getAnimal()
-	{
 		return anim;
+	}
+	static User *initialize()
+	{
+		if(!u)
+			u= new User;
+		return u;
 	}
 	private:
 	Animal *anim;
 };
 
+User *User::u = 0;
+
 int main()
 {
-	User *u1 = new User(1);
-	User *u2 = new User(2);
-	Animal *d= u1->getAnimal();
-	Animal *w= u2->getAnimal();
+	Animal *d= User::initialize()->getAnimal(1);
+	Animal *w= User::initialize()->getAnimal(2);
 	
 	d->Move();
 	w->Move();
